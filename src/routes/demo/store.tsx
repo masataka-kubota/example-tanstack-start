@@ -1,43 +1,39 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useStore } from '@tanstack/react-store'
+import { createFileRoute } from '@tanstack/react-router';
+import { useSelector } from '@tanstack/react-store';
 
-import { fullName, store } from '#/lib/demo-store'
+import { fullName, store } from '#/lib/demo-store';
 
 export const Route = createFileRoute('/demo/store')({
   component: DemoStore,
-})
+});
 
 function FirstName() {
-  const firstName = useStore(store, (state) => state.firstName)
+  const firstName = useSelector(store, (state) => state.firstName);
   return (
     <input
       type="text"
       value={firstName}
-      onChange={(e) =>
-        store.setState((state) => ({ ...state, firstName: e.target.value }))
-      }
+      onChange={(e) => store.setState((state) => ({ ...state, firstName: e.target.value }))}
       className="demo-input"
     />
-  )
+  );
 }
 
 function LastName() {
-  const lastName = useStore(store, (state) => state.lastName)
+  const lastName = useSelector(store, (state) => state.lastName);
   return (
     <input
       type="text"
       value={lastName}
-      onChange={(e) =>
-        store.setState((state) => ({ ...state, lastName: e.target.value }))
-      }
+      onChange={(e) => store.setState((state) => ({ ...state, lastName: e.target.value }))}
       className="demo-input"
     />
-  )
+  );
 }
 
 function FullName() {
-  const fName = useStore(fullName, (state) => state)
-  return <div className="demo-list-item font-medium">{fName}</div>
+  const fName = useSelector(fullName, (state) => state);
+  return <div className="demo-list-item font-medium">{fName}</div>;
 }
 
 function DemoStore() {
@@ -51,5 +47,5 @@ function DemoStore() {
         <FullName />
       </section>
     </main>
-  )
+  );
 }

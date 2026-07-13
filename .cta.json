@@ -12,10 +12,5 @@
   "routerOnly": false,
   "version": 1,
   "framework": "react",
-  "chosenAddOns": [
-    "eslint",
-    "cloudflare",
-    "tanstack-query",
-    "store"
-  ]
+  "chosenAddOns": ["eslint", "cloudflare", "tanstack-query", "store"]
 }
