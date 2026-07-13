@@ -41,12 +41,12 @@ function DevtoolPanel() {
   }, []);
 
   return (
-    <div className="p-4 grid gap-4 grid-cols-[1fr_10fr]">
-      <div className="demo-muted whitespace-nowrap text-sm font-bold">First Name</div>
+    <div className="grid grid-cols-[1fr_10fr] gap-4 p-4">
+      <div className="demo-muted text-sm font-bold whitespace-nowrap">First Name</div>
       <div className="text-sm">{state?.firstName}</div>
-      <div className="demo-muted whitespace-nowrap text-sm font-bold">Last Name</div>
+      <div className="demo-muted text-sm font-bold whitespace-nowrap">Last Name</div>
       <div className="text-sm">{state?.lastName}</div>
-      <div className="demo-muted whitespace-nowrap text-sm font-bold">Full Name</div>
+      <div className="demo-muted text-sm font-bold whitespace-nowrap">Full Name</div>
       <div className="text-sm">{state?.fullName}</div>
     </div>
   );
