@@ -1,11 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript"
-  ],
-  "jsPlugins": [
-    "@tanstack/eslint-plugin-query"
-  ],
+  "plugins": ["typescript"],
+  "jsPlugins": ["@tanstack/eslint-plugin-query"],
   "categories": {
     "correctness": "off"
   },
@@ -18,7 +14,7 @@
     "**/dist/**",
     "**/snap/**",
     "**/vite.config.*.timestamp-*.*",
-    "bun.lock",
+    "bun.lock"
   ],
   "rules": {
     "eslint/no-unused-vars": "error",
@@ -40,6 +36,6 @@
     "@tanstack/query/infinite-query-property-order": "error",
     "@tanstack/query/no-void-query-fn": "error",
     "@tanstack/query/mutation-property-order": "error",
-    "@tanstack/query/prefer-query-options": "error",
-  },
+    "@tanstack/query/prefer-query-options": "error"
+  }
 }
