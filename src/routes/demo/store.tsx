@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useStore } from '@tanstack/react-store';
+import { useSelector } from '@tanstack/react-store';
 
 import { fullName, store } from '#/lib/demo-store';
 
@@ -8,7 +8,7 @@ export const Route = createFileRoute('/demo/store')({
 });
 
 function FirstName() {
-  const firstName = useStore(store, (state) => state.firstName);
+  const firstName = useSelector(store, (state) => state.firstName);
   return (
     <input
       type="text"
@@ -20,7 +20,7 @@ function FirstName() {
 }
 
 function LastName() {
-  const lastName = useStore(store, (state) => state.lastName);
+  const lastName = useSelector(store, (state) => state.lastName);
   return (
     <input
       type="text"
@@ -32,7 +32,7 @@ function LastName() {
 }
 
 function FullName() {
-  const fName = useStore(fullName, (state) => state);
+  const fName = useSelector(fullName, (state) => state);
   return <div className="demo-list-item font-medium">{fName}</div>;
 }
 
