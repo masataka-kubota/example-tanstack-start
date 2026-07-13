@@ -43,9 +43,10 @@ If you prefer not to use Tailwind CSS:
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
-bun --bun run lint
-bun --bun run format
-bun --bun run check
+bun run lint
+bun run lint:fix
+bun run format
+bun run format:check
 ```
 
 ## Deploy to Cloudflare Workers
