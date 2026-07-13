@@ -1,4 +1,14 @@
 {
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "cSpell.userWords": [
+    "oxlint",
+    "oxfmt"
+  ],
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },
