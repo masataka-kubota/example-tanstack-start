@@ -4,7 +4,7 @@ import { defineConfig } from 'oxlint';
 export default defineConfig({
   overrides: [
     {
-      files: ['**/*.{js,jsx,mjs,cjs}'],
+      files: ['**/*.{js,jsx,ts,tsx,mjs,cjs}'],
       jsPlugins: ['@tanstack/eslint-plugin-query', 'eslint-plugin-better-tailwindcss'],
       rules: {
         'eslint/no-unused-vars': 'error',
@@ -29,12 +29,17 @@ export default defineConfig({
         '@tanstack/query/prefer-query-options': 'error',
         // --- Better Tailwind CSS rules ---
         ...eslintPluginBetterTailwindcss.configs.recommended.rules,
+        'better-tailwindcss/enforce-consistent-line-wrapping': [
+          'warn',
+          { printWidth: 100, strictness: 'loose' },
+        ],
       },
     },
   ],
   settings: {
     'better-tailwindcss': {
-      entryPoint: 'src/global.css',
+      entryPoint: 'src/styles.css',
+      detectComponentClasses: true,
     },
   },
 });
