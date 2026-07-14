@@ -39,7 +39,7 @@ function FullName() {
 function DemoStore() {
   return (
     <main className="demo-page demo-center">
-      <section className="demo-panel flex w-full max-w-xl flex-col gap-4">
+      <section className="flex w-full max-w-xl flex-col gap-4 demo-panel">
         <p className="island-kicker">TanStack Store</p>
         <h1 className="demo-title mb-2">Store Example</h1>
         <FirstName />

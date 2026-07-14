@@ -1,214 +1,68 @@
-Welcome to your new TanStack Start app!
+# TanStack Start + Tailwind demo
 
-# Getting Started
+This project is a TanStack Start app with file-based routing, TanStack Query, Tailwind CSS, and Cloudflare deployment support.
 
-To run this application:
+## Getting started
+
+Install dependencies and start the development server:
 
 ```bash
 bun install
 bun run dev
 ```
 
-# Building For Production
+## Scripts
 
-To build this application for production:
+The following scripts are available:
 
 ```bash
+bun run dev
+bun run generate-routes
 bun run build
-```
-
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
-
-```bash
+bun run preview
 bun run test
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
-
-## Linting & Formatting
-
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
-
-```bash
+bun run typecheck
 bun run lint
 bun run lint:fix
 bun run format
 bun run format:check
+bun run deploy
 ```
 
-## Deploy to Cloudflare Workers
+## Styling
 
-This project uses the Cloudflare Vite plugin (configured in `vite.config.ts`) and `wrangler.jsonc`:
+This project uses Tailwind CSS v4 with the Vite plugin and custom utilities defined in [src/styles.css](src/styles.css).
 
-1. Install Wrangler: `npm install -g wrangler`
-2. Authenticate: `wrangler login`
-3. Deploy: `npx wrangler deploy`
+The demo pages under [src/routes/demo](src/routes/demo) are intended as examples and can be removed if you do not need them.
 
-For production env vars, run `wrangler secret put MY_VAR` for each secret listed in `.env.example`. Public (non-secret) vars go in `wrangler.jsonc` under `vars`.
+## Linting and formatting
 
-KV, D1, R2, and Durable Object bindings are configured in `wrangler.jsonc` — see https://developers.cloudflare.com/workers/wrangler/configuration/.
+This project uses:
+
+- [oxlint](https://oxc.rs/docs/guide/usage/linter.html) for linting
+- [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for formatting
+
+Configuration lives in [oxlint.config.ts](oxlint.config.ts) and [.oxfmtrc.json](.oxfmtrc.json).
 
 ## Routing
 
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
+This app uses TanStack Router with file-based routing. Routes are defined in [src/routes](src/routes), and the root layout is configured in [src/routes/__root.tsx](src/routes/__root.tsx).
 
-### Adding A Route
+To add a route, create a new file in [src/routes](src/routes). The router plugin will generate the route tree automatically.
 
-To add a new route to your application just add a new file in the `./src/routes` directory.
+## Deployment
 
-TanStack will automatically generate the content of the route file for you.
+The project is set up for deployment to Cloudflare Workers via [vite.config.ts](vite.config.ts) and [wrangler.jsonc](wrangler.jsonc).
 
-Now that you have two routes you can use a `Link` component to navigate between them.
+Typical deployment steps:
 
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from '@tanstack/react-router';
+```bash
+bun run build
+bunx wrangler deploy
 ```
 
-Then anywhere in your JSX you can use it like so:
+For environment variables, use Wrangler secrets for sensitive values and [wrangler.jsonc](wrangler.jsonc) for public values.
 
-```tsx
-<Link to="/about">About</Link>
-```
+## Demo files
 
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-});
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start';
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString();
-});
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    getServerTime().then(setTime);
-  }, []);
-
-  return <div>Server time: {time}</div>;
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router';
-import { json } from '@tanstack/react-start';
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-});
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router';
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people');
-    return response.json();
-  },
-  component: PeopleComponent,
-});
-
-function PeopleComponent() {
-  const data = Route.useLoaderData();
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+Files prefixed with `demo` are starter examples and can be safely deleted once you no longer need them.
