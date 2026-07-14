@@ -453,6 +453,19 @@ a {
   background: color-mix(in oklab, var(--lagoon) 8%, transparent);
 }
 
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+  transition: transform 170ms ease;
+}
+
 .nav-link:hover,
 .nav-link.is-active {
   color: var(--sea-ink);
